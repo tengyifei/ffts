@@ -13,6 +13,7 @@
 
 *Makefile
 
+config.h
 config.status
 compile
 libtool

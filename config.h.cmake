@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to disable dynamic code generation. */
-#undef DYNAMIC_DISABLED
+/* #undef DYNAMIC_DISABLED */
 
 /* JNI being built. */
 /* #undef ENABLE_JNI */
@@ -145,4 +145,6 @@
    such a type exists and the standard includes do not define it. */
 /* #undef uint64_t */
 
-// vim: set autoindent noexpandtab tabstop=3 shiftwidth=3:
+
+
+/* Patches */

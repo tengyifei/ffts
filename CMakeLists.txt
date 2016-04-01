@@ -1,7 +1,9 @@
-# TODO: convert configure.ac to config.h.cmake
-# configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+cmake_minimum_required(VERSION 3.0)
 
-include_directories(${gnssrecv_SOURCE_DIR}/ffts)
+# TODO: convert configure.ac to config.h.cmake
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+
+include_directories(.)
 
 add_subdirectory(src)
 

@@ -26,13 +26,17 @@ SET(ffts_LIB_SRCS
    types.h
    vfp.h
 
-   ffts_static.c
-   sse.s
-   neon.s
-   neon_static_f.s
-   neon_static_i.s
-   vfp.s
+   codegen.c
 )
+
+# test wether it is a x86 machine and as/gas is available
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
+   enable_language(ASM-ATT)
+   if(CMAKE_ASM-ATT_COMPILER_WORKS)
+      set(can_use_assembler TRUE)
+      set(ffts_LIB_SRCS ${ffts_LIB_SRCS} sse.s neon.s)
+   endif(CMAKE_ASM-ATT_COMPILER_WORKS)
+endif (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
 
 add_library(ffts SHARED ${ffts_LIB_SRCS})
 
