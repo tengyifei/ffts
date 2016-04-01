@@ -13,7 +13,6 @@
 
 *Makefile
 
-config.h
 config.status
 compile
 libtool
@@ -26,3 +25,10 @@ java/android/gen/*
 java/android/obj/*
 java/android/bin/*
 
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json

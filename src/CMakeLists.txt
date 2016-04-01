@@ -8,6 +8,30 @@ SET(ffts_LIB_SRCS
    ffts_real.c
    ffts_real_nd.c
    patterns.c
+
+   ffts.h
+   ffts_nd.h
+   ffts_real.h
+   ffts_real_nd.h
+   ffts_small.h
+   ffts_static.h
+   macros-alpha.h
+   macros-altivec.h
+   macros-neon.h
+   macros-sse.h
+   macros.h
+   neon.h
+   neon_float.h
+   patterns.h
+   types.h
+   vfp.h
+
+   ffts_static.c
+   sse.s
+   neon.s
+   neon_static_f.s
+   neon_static_i.s
+   vfp.s
 )
 
 add_library(ffts SHARED ${ffts_LIB_SRCS})
@@ -30,7 +54,7 @@ install(FILES  ../include/ffts.h DESTINATION include/ffts)
 #
 #lib_LTLIBRARIES = libffts.la
 #
-#libffts_la_SOURCES = ffts.c ffts_small.c ffts_nd.c ffts_real.c ffts_real_nd.c patterns.c 
+#libffts_la_SOURCES = ffts.c ffts_small.c ffts_nd.c ffts_real.c ffts_real_nd.c patterns.c
 #libffts_la_SOURCES += codegen.h codegen_arm.h codegen_sse.h ffts.h ffts_nd.h ffts_real.h ffts_real_nd.h ffts_small.h ffts_static.h macros-alpha.h macros-altivec.h macros-neon.h macros-sse.h macros.h neon.h neon_float.h patterns.h types.h vfp.h
 #
 #if DYNAMIC_DISABLED
@@ -44,7 +68,7 @@ install(FILES  ../include/ffts.h DESTINATION include/ffts)
 #
 #
 #if HAVE_VFP
-#libffts_la_SOURCES += vfp.s 
+#libffts_la_SOURCES += vfp.s
 #else
 #if HAVE_NEON
 #
@@ -54,7 +78,7 @@ install(FILES  ../include/ffts.h DESTINATION include/ffts)
 #libffts_la_SOURCES += neon_static_f.s neon_static_i.s
 #endif
 #
-#else 
+#else
 #if HAVE_SSE
 #libffts_la_SOURCES += sse.s
 #endif

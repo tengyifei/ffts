@@ -1,19 +1,17 @@
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+# TODO: convert configure.ac to config.h.cmake
+# configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+
+include_directories(${gnssrecv_SOURCE_DIR}/ffts)
 
 add_subdirectory(src)
-add_subdirectory(tests)
 
 
 ########### install files ###############
 
-install(FILES  ffts.pc DESTINATION )
-
-
-
 #original Makefile.am contents follow:
 
 #AUTOMAKE_OPTIONS = foreign
-#SUBDIRS = src tests 
+#SUBDIRS = src tests
 #EXTRA_DIST=COPYRIGHT ffts.pc.in build_iphone.sh build_android.sh
 #ACLOCAL_AMFLAGS = -Im4
 #
