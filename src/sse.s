@@ -1,10 +1,10 @@
 /*
- 
+
  This file is part of FFTS -- The Fastest Fourier Transform in the South
-  
+
  Copyright (c) 2012, Anthony M. Blake <amb@anthonix.com>
- Copyright (c) 2012, The University of Waikato 
- 
+ Copyright (c) 2012, The University of Waikato
+
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ _leaf_ee_init:
 	.globl leaf_ee_init
 leaf_ee_init:
 #endif
- 		#lea L_sse_constants(%rip), %r9 
+ 		#lea L_sse_constants(%rip), %r9
 		movq 0xe0(%rdi), %r9
 		xorl	%eax, %eax
 # eax is loop counter (init to 0)
@@ -168,8 +168,8 @@ LEAF_EE_const_7:
         movaps    %xmm5, 32(%rdx,%r12,4)                        #83.5
         movaps    %xmm6, 48(%rdx,%r12,4)                        #83.5
 				cmpq	%rcx, %rax
-        jne      LEAF_EE_1 
-        
+        jne      LEAF_EE_1
+
 
 
 # _leaf_oo + 4 needs to be 16 byte aligned
@@ -349,7 +349,7 @@ LEAF_EO_const_7:
         movaps    %xmm1, 16(%rdx,%r11,4)                        #88.5
         movaps    %xmm3, 32(%rdx,%r11,4)                        #88.5
         movaps    %xmm12, 48(%rdx,%r11,4)                       #88.5
-	
+
 
 #ifdef __APPLE__
 	.globl _leaf_oe
@@ -452,8 +452,8 @@ LEAF_OE_const_5:
         movaps    %xmm3, 16(%rdx,%r12,4)                        #70.5
         movaps    %xmm14, 32(%rdx,%r12,4)                       #70.5
         movaps    %xmm4, 48(%rdx,%r12,4)                        #70.5
-	
-	
+
+
 #ifdef __APPLE__
 	.globl	_leaf_end
 _leaf_end:
@@ -475,7 +475,7 @@ x_init:
 #ifdef __APPLE__
 	.globl	_x4
 _x4:
-#else	
+#else
 	.globl	x4
 x4:
 #endif
@@ -539,8 +539,8 @@ x4:
         movaps    %xmm2, 48(%rdx)                               #34.3
         movaps    %xmm4, 80(%rdx)                               #34.3
         movaps    %xmm5, 112(%rdx)                              #34.3
-				ret	
-	
+				ret
+
 # _x8_soft + 5 needs to be 16 byte aligned
 #ifdef __APPLE__
 	.globl	_x8_soft
@@ -550,100 +550,100 @@ _x8_soft:
 x8_soft:
 #endif
 	xorl %eax, %eax
-				movq      %rdx, %rbx     
+				movq      %rdx, %rbx
         movq      %r8, %rsi
-				leaq       (%rdx,%rcx,4), %r9  
-        leaq       (%r9,%rcx,4), %r10 
-        leaq       (%r10,%rcx,4), %r11 
+				leaq       (%rdx,%rcx,4), %r9
+        leaq       (%r9,%rcx,4), %r10
+        leaq       (%r10,%rcx,4), %r11
         leaq       (%r11,%rcx,4), %r12
         leaq       (%r12,%rcx,4), %r13
         leaq       (%r13,%rcx,4), %r14
         leaq       (%r14,%rcx,4), %r15
-X8_soft_loop:   
-        movaps    (%rsi), %xmm9       
-        movaps    (%r10,%rax,4), %xmm6 
-        movaps    %xmm9, %xmm11        
-        movaps    (%r11,%rax,4), %xmm7 
-        movaps    16(%rsi), %xmm8      
-        mulps     %xmm6, %xmm11      
-        mulps     %xmm7, %xmm9       
-        shufps    $177, %xmm6, %xmm6 
-        mulps     %xmm8, %xmm6       
-        shufps    $177, %xmm7, %xmm7 
-        subps     %xmm6, %xmm11   
-        mulps     %xmm7, %xmm8     
-        movaps    %xmm11, %xmm10    
-        addps     %xmm8, %xmm9       
-        movaps    32(%rsi), %xmm15    
-        addps     %xmm9, %xmm10        
-        subps     %xmm9, %xmm11        
-        movaps    (%rbx,%rax,4), %xmm5 
-        movaps    %xmm15, %xmm6        
+X8_soft_loop:
+        movaps    (%rsi), %xmm9
+        movaps    (%r10,%rax,4), %xmm6
+        movaps    %xmm9, %xmm11
+        movaps    (%r11,%rax,4), %xmm7
+        movaps    16(%rsi), %xmm8
+        mulps     %xmm6, %xmm11
+        mulps     %xmm7, %xmm9
+        shufps    $177, %xmm6, %xmm6
+        mulps     %xmm8, %xmm6
+        shufps    $177, %xmm7, %xmm7
+        subps     %xmm6, %xmm11
+        mulps     %xmm7, %xmm8
+        movaps    %xmm11, %xmm10
+        addps     %xmm8, %xmm9
+        movaps    32(%rsi), %xmm15
+        addps     %xmm9, %xmm10
+        subps     %xmm9, %xmm11
+        movaps    (%rbx,%rax,4), %xmm5
+        movaps    %xmm15, %xmm6
         movaps    (%r12,%rax,4), %xmm12
-        movaps    %xmm5, %xmm2         
+        movaps    %xmm5, %xmm2
         movaps    (%r14,%rax,4), %xmm13
-        xorps     %xmm3, %xmm11     #const   
-        movaps    48(%rsi), %xmm14     
-        subps     %xmm10, %xmm2        
-        mulps     %xmm12, %xmm6        
-        addps     %xmm10, %xmm5        
-        mulps     %xmm13, %xmm15       
-        movaps    64(%rsi), %xmm10     
-        movaps    %xmm5, %xmm0         
-        shufps    $177, %xmm12, %xmm12 
-        shufps    $177, %xmm13, %xmm13 
-        mulps     %xmm14, %xmm12       
-        mulps     %xmm13, %xmm14       
-        subps     %xmm12, %xmm6        
-        addps     %xmm14, %xmm15       
-        movaps    (%r13,%rax,4), %xmm7  
-        movaps    %xmm10, %xmm13         
-        movaps    (%r15,%rax,4), %xmm8    
-        movaps    %xmm6, %xmm12      
-        movaps    80(%rsi), %xmm9     
-        addq      $96, %rsi           
-        mulps     %xmm7, %xmm13      
-        subps     %xmm15, %xmm6      
-        addps     %xmm15, %xmm12     
-        mulps     %xmm8, %xmm10      
-        subps     %xmm12, %xmm0          
-        addps     %xmm12, %xmm5          
-        shufps    $177, %xmm7, %xmm7     
-        xorps     %xmm3, %xmm6   #const        
-        shufps    $177, %xmm8, %xmm8     
-        movaps    %xmm2, %xmm12          
-        mulps     %xmm9, %xmm7           
-        mulps     %xmm8, %xmm9          
-        subps     %xmm7, %xmm13        
-        addps     %xmm9, %xmm10       
-        movaps    (%r9,%rax,4), %xmm4        
-        shufps    $177, %xmm11, %xmm11       
-        movaps    %xmm4, %xmm1              
-        shufps    $177, %xmm6, %xmm6       
-        addps     %xmm11, %xmm1           
-        subps     %xmm11, %xmm4          
-        addps     %xmm6, %xmm12         
-        subps     %xmm6, %xmm2         
-        movaps    %xmm13, %xmm11      
-        movaps    %xmm4, %xmm14      
-        movaps    %xmm1, %xmm6      
-        subps     %xmm10, %xmm13   
-        addps     %xmm10, %xmm11  
-        xorps     %xmm3, %xmm13  #const  
-        addps     %xmm11, %xmm4                                 
-        subps     %xmm11, %xmm14                                
-        shufps    $177, %xmm13, %xmm13                          
-        movaps    %xmm5, (%rbx,%rax,4)                                 
-        movaps    %xmm4, (%r9,%rax,4)                                  
-        movaps    %xmm2, (%r10,%rax,4)                                 
-        subps     %xmm13, %xmm1                                 
-        addps     %xmm13, %xmm6                                 
-        movaps    %xmm1, (%r11,%rax,4)                                  
-        movaps    %xmm0, (%r12,%rax,4)                                 
-        movaps    %xmm14, (%r13,%rax,4)                                
-        movaps    %xmm12, (%r14,%rax,4)                                
-        movaps    %xmm6, (%r15,%rax,4)                                 
-        addq      $4, %rax   
+        xorps     %xmm3, %xmm11     #const
+        movaps    48(%rsi), %xmm14
+        subps     %xmm10, %xmm2
+        mulps     %xmm12, %xmm6
+        addps     %xmm10, %xmm5
+        mulps     %xmm13, %xmm15
+        movaps    64(%rsi), %xmm10
+        movaps    %xmm5, %xmm0
+        shufps    $177, %xmm12, %xmm12
+        shufps    $177, %xmm13, %xmm13
+        mulps     %xmm14, %xmm12
+        mulps     %xmm13, %xmm14
+        subps     %xmm12, %xmm6
+        addps     %xmm14, %xmm15
+        movaps    (%r13,%rax,4), %xmm7
+        movaps    %xmm10, %xmm13
+        movaps    (%r15,%rax,4), %xmm8
+        movaps    %xmm6, %xmm12
+        movaps    80(%rsi), %xmm9
+        addq      $96, %rsi
+        mulps     %xmm7, %xmm13
+        subps     %xmm15, %xmm6
+        addps     %xmm15, %xmm12
+        mulps     %xmm8, %xmm10
+        subps     %xmm12, %xmm0
+        addps     %xmm12, %xmm5
+        shufps    $177, %xmm7, %xmm7
+        xorps     %xmm3, %xmm6   #const
+        shufps    $177, %xmm8, %xmm8
+        movaps    %xmm2, %xmm12
+        mulps     %xmm9, %xmm7
+        mulps     %xmm8, %xmm9
+        subps     %xmm7, %xmm13
+        addps     %xmm9, %xmm10
+        movaps    (%r9,%rax,4), %xmm4
+        shufps    $177, %xmm11, %xmm11
+        movaps    %xmm4, %xmm1
+        shufps    $177, %xmm6, %xmm6
+        addps     %xmm11, %xmm1
+        subps     %xmm11, %xmm4
+        addps     %xmm6, %xmm12
+        subps     %xmm6, %xmm2
+        movaps    %xmm13, %xmm11
+        movaps    %xmm4, %xmm14
+        movaps    %xmm1, %xmm6
+        subps     %xmm10, %xmm13
+        addps     %xmm10, %xmm11
+        xorps     %xmm3, %xmm13  #const
+        addps     %xmm11, %xmm4
+        subps     %xmm11, %xmm14
+        shufps    $177, %xmm13, %xmm13
+        movaps    %xmm5, (%rbx,%rax,4)
+        movaps    %xmm4, (%r9,%rax,4)
+        movaps    %xmm2, (%r10,%rax,4)
+        subps     %xmm13, %xmm1
+        addps     %xmm13, %xmm6
+        movaps    %xmm1, (%r11,%rax,4)
+        movaps    %xmm0, (%r12,%rax,4)
+        movaps    %xmm14, (%r13,%rax,4)
+        movaps    %xmm12, (%r14,%rax,4)
+        movaps    %xmm6, (%r15,%rax,4)
+        addq      $4, %rax
 				cmpq	%rcx, %rax
         jne       X8_soft_loop
 				ret
@@ -655,112 +655,112 @@ _x8_hard:
 	.globl	x8_hard
 x8_hard:
 #endif
-        movaps    (%r9), %xmm5           
-X8_loop:  
-        movaps    (%r8), %xmm9                                 
+        movaps    (%r9), %xmm5
+X8_loop:
+        movaps    (%r8), %xmm9
 X8_const_2:
-        movaps    0xFECA(%rdx,%rax,4), %xmm6  
-        movaps    %xmm9, %xmm11                                 
+        movaps    0xFECA(%rdx,%rax,4), %xmm6
+        movaps    %xmm9, %xmm11
 X8_const_3:
-        movaps    0xFECA(%rdx,%rax,4), %xmm7  
-        movaps    16(%r8), %xmm8                               
-        mulps     %xmm6, %xmm11                                 
-        mulps     %xmm7, %xmm9                                  
-        shufps    $177, %xmm6, %xmm6                            
-        mulps     %xmm8, %xmm6                                  
-        shufps    $177, %xmm7, %xmm7                            
-        subps     %xmm6, %xmm11                                 
-        mulps     %xmm7, %xmm8                                  
-        movaps    %xmm11, %xmm10                                
-        addps     %xmm8, %xmm9                                  
-        movaps    32(%r8), %xmm15                              
-        addps     %xmm9, %xmm10                                 
-        subps     %xmm9, %xmm11                                 
+        movaps    0xFECA(%rdx,%rax,4), %xmm7
+        movaps    16(%r8), %xmm8
+        mulps     %xmm6, %xmm11
+        mulps     %xmm7, %xmm9
+        shufps    $177, %xmm6, %xmm6
+        mulps     %xmm8, %xmm6
+        shufps    $177, %xmm7, %xmm7
+        subps     %xmm6, %xmm11
+        mulps     %xmm7, %xmm8
+        movaps    %xmm11, %xmm10
+        addps     %xmm8, %xmm9
+        movaps    32(%r8), %xmm15
+        addps     %xmm9, %xmm10
+        subps     %xmm9, %xmm11
 X8_const_0:
-        movaps    0xFECA(%rdx,%rax,4), %xmm3     
-        movaps    %xmm15, %xmm6                                 
+        movaps    0xFECA(%rdx,%rax,4), %xmm3
+        movaps    %xmm15, %xmm6
 X8_const_4:
         movaps    0xFECA(%rdx,%rax,4), %xmm12
-        movaps    %xmm3, %xmm2                                  
+        movaps    %xmm3, %xmm2
 X8_const_6:
         movaps    0xFECA(%rdx,%rax,4), %xmm13
-        xorps     %xmm5, %xmm11                                 
-        movaps    48(%r8), %xmm14                              
-        subps     %xmm10, %xmm2                                 
-        mulps     %xmm12, %xmm6                                 
-        addps     %xmm10, %xmm3                                 
-        mulps     %xmm13, %xmm15                                
-        movaps    64(%r8), %xmm10                              
-        movaps    %xmm3, %xmm0                                  
-        shufps    $177, %xmm12, %xmm12                          
-        shufps    $177, %xmm13, %xmm13                          
-        mulps     %xmm14, %xmm12                                
-        mulps     %xmm13, %xmm14                                
-        subps     %xmm12, %xmm6                                 
-        addps     %xmm14, %xmm15                                
+        xorps     %xmm5, %xmm11
+        movaps    48(%r8), %xmm14
+        subps     %xmm10, %xmm2
+        mulps     %xmm12, %xmm6
+        addps     %xmm10, %xmm3
+        mulps     %xmm13, %xmm15
+        movaps    64(%r8), %xmm10
+        movaps    %xmm3, %xmm0
+        shufps    $177, %xmm12, %xmm12
+        shufps    $177, %xmm13, %xmm13
+        mulps     %xmm14, %xmm12
+        mulps     %xmm13, %xmm14
+        subps     %xmm12, %xmm6
+        addps     %xmm14, %xmm15
 X8_const_5:
         movaps    0xFECA(%rdx,%rax,4), %xmm7
-        movaps    %xmm10, %xmm13                                
+        movaps    %xmm10, %xmm13
 X8_const_7:
         movaps    0xFECA(%rdx,%rax,4), %xmm8
-        movaps    %xmm6, %xmm12                                 
-        movaps    80(%r8), %xmm9                               
-        addq      $96, %r8                                     
-        mulps     %xmm7, %xmm13                                 
-        subps     %xmm15, %xmm6                                 
-        addps     %xmm15, %xmm12                                
-        mulps     %xmm8, %xmm10                                 
-        subps     %xmm12, %xmm0                                 
-        addps     %xmm12, %xmm3                                 
-        shufps    $177, %xmm7, %xmm7                            
-        xorps     %xmm5, %xmm6                                  
-        shufps    $177, %xmm8, %xmm8                            
-        movaps    %xmm2, %xmm12                                 
-        mulps     %xmm9, %xmm7                                  
-        mulps     %xmm8, %xmm9                                  
-        subps     %xmm7, %xmm13                                 
-        addps     %xmm9, %xmm10                                 
+        movaps    %xmm6, %xmm12
+        movaps    80(%r8), %xmm9
+        addq      $96, %r8
+        mulps     %xmm7, %xmm13
+        subps     %xmm15, %xmm6
+        addps     %xmm15, %xmm12
+        mulps     %xmm8, %xmm10
+        subps     %xmm12, %xmm0
+        addps     %xmm12, %xmm3
+        shufps    $177, %xmm7, %xmm7
+        xorps     %xmm5, %xmm6
+        shufps    $177, %xmm8, %xmm8
+        movaps    %xmm2, %xmm12
+        mulps     %xmm9, %xmm7
+        mulps     %xmm8, %xmm9
+        subps     %xmm7, %xmm13
+        addps     %xmm9, %xmm10
 X8_const_1:
-        movaps    0xFECA(%rdx,%rax,4), %xmm4   
-        shufps    $177, %xmm11, %xmm11                          
-        movaps    %xmm4, %xmm1                                  
-        shufps    $177, %xmm6, %xmm6                            
-        addps     %xmm11, %xmm1                                 
-        subps     %xmm11, %xmm4                                 
-        addps     %xmm6, %xmm12                                 
-        subps     %xmm6, %xmm2                                  
-        movaps    %xmm13, %xmm11                                
-        movaps    %xmm4, %xmm14                                 
-        movaps    %xmm1, %xmm6                                  
-        subps     %xmm10, %xmm13                                
-        addps     %xmm10, %xmm11                                
-        xorps     %xmm5, %xmm13                                 
-        addps     %xmm11, %xmm4                                 
-        subps     %xmm11, %xmm14                                
-        shufps    $177, %xmm13, %xmm13                          
+        movaps    0xFECA(%rdx,%rax,4), %xmm4
+        shufps    $177, %xmm11, %xmm11
+        movaps    %xmm4, %xmm1
+        shufps    $177, %xmm6, %xmm6
+        addps     %xmm11, %xmm1
+        subps     %xmm11, %xmm4
+        addps     %xmm6, %xmm12
+        subps     %xmm6, %xmm2
+        movaps    %xmm13, %xmm11
+        movaps    %xmm4, %xmm14
+        movaps    %xmm1, %xmm6
+        subps     %xmm10, %xmm13
+        addps     %xmm10, %xmm11
+        xorps     %xmm5, %xmm13
+        addps     %xmm11, %xmm4
+        subps     %xmm11, %xmm14
+        shufps    $177, %xmm13, %xmm13
 X8_const1_0:
         movaps    %xmm3, 0xFECA(%rdx,%rax,4)
 X8_const1_1:
         movaps    %xmm4, 0xFECA(%rdx,%rax,4)
 X8_const1_2:
-        movaps    %xmm2, 0xFECA(%rdx,%rax,4) 
-        subps     %xmm13, %xmm1                                 
-        addps     %xmm13, %xmm6                                 
+        movaps    %xmm2, 0xFECA(%rdx,%rax,4)
+        subps     %xmm13, %xmm1
+        addps     %xmm13, %xmm6
 X8_const1_3:
-        movaps    %xmm1, 0xFECA(%rdx,%rax,4) 
+        movaps    %xmm1, 0xFECA(%rdx,%rax,4)
 X8_const1_4:
         movaps    %xmm0, 0xFECA(%rdx,%rax,4)
 X8_const1_5:
         movaps    %xmm14, 0xFECA(%rdx,%rax,4)
 X8_const1_6:
-        movaps    %xmm12, 0xFECA(%rdx,%rax,4) 
+        movaps    %xmm12, 0xFECA(%rdx,%rax,4)
 X8_const1_7:
         movaps    %xmm6, 0xFECA(%rdx,%rax,4)
-        addq      $4, %rax   
+        addq      $4, %rax
 				cmpq	%rcx, %rax
         jne       X8_loop
 
-#ifdef __APPLE__	
+#ifdef __APPLE__
 	.globl _sse_leaf_ee_offsets
 	.globl _sse_leaf_oo_offsets
 	.globl _sse_leaf_eo_offsets
@@ -852,7 +852,7 @@ sse_leaf_oe_offsets:
 	.section .data
 #endif
 	.p2align 4
-#ifdef __APPLE__	
+#ifdef __APPLE__
 	.globl _sse_constants
 _sse_constants:
 #else
@@ -864,7 +864,7 @@ sse_constants:
 	.long	0xbf3504f3,0x3f3504f3,0xbf3504f3,0x3f3504f3
 	.long	0x3f800000,0x3f800000,0x3f3504f3,0x3f3504f3
 	.long	0x00000000,0x00000000,0xbf3504f3,0x3f3504f3
-#ifdef __APPLE__	
+#ifdef __APPLE__
 	.globl _sse_constants_inv
 _sse_constants_inv:
 #else

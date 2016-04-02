@@ -4,8 +4,8 @@
 /* Define to disable dynamic code generation. */
 /* #undef DYNAMIC_DISABLED */
 
-/* JNI being built. */
-/* #undef ENABLE_JNI */
+/* JNI not being built. */
+#undef ENABLE_JNI
 
 /* Define to FFT in single precision. */
 #define FFTS_PREC_SINGLE 1
