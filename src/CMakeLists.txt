@@ -35,12 +35,11 @@ if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
       set_property(SOURCE sse.s PROPERTY LANGUAGE C)
 endif (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
 
-add_library(ffts SHARED ${ffts_LIB_SRCS})
+add_library(ffts ${ffts_LIB_SRCS})
 
 target_link_libraries(ffts)
 
 set_target_properties(ffts PROPERTIES VERSION 4.2.0 SOVERSION 4)
-install(TARGETS ffts DESTINATION lib)
 
 
 ########### install files ###############
