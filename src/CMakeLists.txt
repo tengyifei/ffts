@@ -35,6 +35,7 @@ if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
       set_property(SOURCE sse.s PROPERTY LANGUAGE C)
 endif (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 add_library(ffts ${ffts_LIB_SRCS})
 
 target_link_libraries(ffts)
